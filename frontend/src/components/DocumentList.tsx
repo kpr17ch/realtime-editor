@@ -17,13 +17,21 @@ const DocumentList: React.FC = () => {
   }, []);
 
   const fetchDocuments = async () => {
-    const response = await axios.get('http://localhost:5000/api/documents');
-    setDocuments(response.data);
+    try {
+      const response = await axios.get('http://localhost:5000/api/documents');
+      setDocuments(response.data);
+    } catch (error) {
+      console.error('Error fetching documents:', error);
+    }
   };
 
   const handleDelete = async (id: string) => {
-    await axios.delete(`http://localhost:5000/api/documents/${id}`);
-    fetchDocuments();
+    try {
+      await axios.delete(`http://localhost:5000/api/documents/${id}`);
+      fetchDocuments();
+    } catch (error) {
+      console.error('Error deleting document:', error);
+    }
   };
 
   return (
